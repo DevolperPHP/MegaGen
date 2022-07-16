@@ -1,0 +1,47 @@
+<%- include("../../layouts/admin-navbar") -%>
+
+<div class="new-users">
+    <p class="title">New Users</p>
+    <br>
+    <div class="users-btns">
+        <button class="btn btn-primary" onclick="window.location.href='/admin/users/new-users'">New Users</button>
+        <button class="btn btn-warning" onclick="window.location.href='/admin/users/accepted-users'">Accepted Users</button>
+
+    </div>
+    <table class="table table-striped bg-light container">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Accept</th>
+                <th>Reject</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% users.forEach(data => {%>
+                <tr>
+                    <td><%= data.name %></td>
+                    <td><%= data.email %></td>
+                    <td><form action="/admin/users/accept/<%= data.id%>?_method=PUT" method="POST">
+                        <button class="edit-btn bg-success">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M5 12l5 5l10 -10" />
+                              </svg>
+                        </button>
+                    </form></td>
+                    <td><form action="/admin/users/reject/<%= data.id%>?_method=DELETE" method="POST">
+                        <button class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ban" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="12" cy="12" r="9" />
+                            <line x1="5.7" y1="5.7" x2="18.3" y2="18.3" />
+                          </svg></button>
+                    </form></td>
+                </tr>
+            <%}) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include("../../layouts/footer") -%>

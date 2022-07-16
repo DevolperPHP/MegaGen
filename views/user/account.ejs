@@ -1,0 +1,54 @@
+<%- include("../layouts/navbar") -%>
+
+<% if(suc.length > 0){%>
+    <script>
+        Swal.fire(
+            'Your order sent for review',
+            'You can see your order status in profile page',
+            'success'
+        )
+    </script>
+<%} %>
+
+<div class="account">
+    <div class="left">
+        <p class="icon"><ion-icon name="person-circle-outline"></ion-icon></p>
+        <div class="info">
+            <p>Name : <%= user.name%></p>
+            <p>Email : <%= user.email%></p>
+            <p>Phone : <%= user.phone%></p>
+            <p>Created Date: <%= user.Date%></p>
+        </div>
+
+        <div class="right">
+            <p class="title">Orders</p>
+            <div class="profile-orders">
+                <% orders.forEach(data => {%>
+                    <div class="order-cart" onclick="window.location.href='/my-account/order/get/<%= data.id%>'">
+                        <div class="order-content">
+                            <p class="icon-folder"><ion-icon name="folder"></ion-icon></p>
+                        <div class="order-info">
+                            <p>Name : <%= data.name%></p>
+                            <p>Date : <%= data.Date%></p>
+                            <p>Bill ID : <%= data.bill_id%></p>
+                        </div>
+                        </div>
+                        <% if(data.isAccept == false && data.isReject == false){%>
+                            <span class="order-status">Waiting for review</span>
+                        <%} %>
+
+                        <% if(data.isAccept == true && data.isReject == false){%>
+                            <span class="order-status-accept">Accepted</span>
+                        <%} %>
+
+                        <% if(data.isAccept == false && data.isReject == true){%>
+                            <span class="order-status-reject">Rejected</span>
+                        <%} %>
+                    </div>
+                <%}) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("../layouts/footer") -%>

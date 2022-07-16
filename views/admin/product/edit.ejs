@@ -1,0 +1,78 @@
+<%- include("../../layouts/admin-navbar") -%>
+
+<div class="add-content">
+    
+    <form action="/admin/product/edit/<%= product.id%>?_method=PUT" method="post" enctype="multipart/form-data">
+        <br><p class="title">Edit Product</p>
+        <br>
+    <label><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <circle cx="8.5" cy="8.5" r="1" fill="currentColor" />
+        <path d="M4 7v3.859c0 .537 .213 1.052 .593 1.432l8.116 8.116a2.025 2.025 0 0 0 2.864 0l4.834 -4.834a2.025 2.025 0 0 0 0 -2.864l-8.117 -8.116a2.025 2.025 0 0 0 -1.431 -.593h-3.859a3 3 0 0 0 -3 3z" />
+      </svg></label> <input type="text" name="name" placeholder="Name" value="<%= product.name%>" required>
+      <br>
+
+      <label><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-blockquote" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M6 15h15" />
+        <path d="M21 19h-15" />
+        <path d="M15 11h6" />
+        <path d="M21 7h-6" />
+        <path d="M9 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+        <path d="M3 9h1a1 1 0 1 1 -1 1v-2.5a2 2 0 0 1 2 -2" />
+      </svg></label> <input type="text" name="minDes" placeholder="Promotional Text" value="<%= product.minDes%>" required>
+      <br>
+
+      <label><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-align-left" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <line x1="4" y1="6" x2="20" y2="6" />
+        <line x1="4" y1="12" x2="14" y2="12" />
+        <line x1="4" y1="18" x2="18" y2="18" />
+      </svg></label> <textarea type="text" name="des" id="des" placeholder="Description" required></textarea>
+      <br>
+<br>
+      <label><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-receipt-2" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M5 21v-16a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v16l-3 -2l-2 2l-2 -2l-2 2l-2 -2l-3 2" />
+        <path d="M14 8h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5m2 0v1.5m0 -9v1.5" />
+      </svg></label> <input type="text" class="half" value="<%= product.price%>" name="price" placeholder="Price" required>
+
+      <label><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M3 19a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <path d="M3 6a9 9 0 0 1 9 0a9 9 0 0 1 9 0" />
+        <line x1="3" y1="6" x2="3" y2="19" />
+        <line x1="12" y1="6" x2="12" y2="19" />
+        <line x1="21" y1="6" x2="21" y2="19" />
+      </svg></label>
+      <select name="category" class="half">
+          <option selected><%= product.category%></option>
+          <% category.forEach(data => {%>
+            <option><%= data.name%></option>
+        <%}) %>
+      </select>
+      <br>
+      <label>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <line x1="15" y1="8" x2="15.01" y2="8" />
+            <rect x="4" y="4" width="16" height="16" rx="3" />
+            <path d="M4 15l4 -4a3 5 0 0 1 3 0l5 5" />
+            <path d="M14 14l1 -1a3 5 0 0 1 3 0l2 2" />
+          </svg>
+      </label> <input type="file" name="image">
+<br>
+      <button class="tick-btn" style="background-color: #fcaf15;"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="32" height="32" viewBox="0 0 24 24" stroke-width="1.5" stroke="#535353" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <path d="M5 12l5 5l10 -10" />
+      </svg></button>
+    </form>
+    
+</div>
+
+<script>
+    var text = "<%= product.des%>"
+    document.getElementById("des").innerHTML = text
+</script>
+
+<%- include("../../layouts/footer") -%>

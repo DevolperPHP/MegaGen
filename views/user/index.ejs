@@ -1,0 +1,62 @@
+<%- include("../layouts/navbar") -%>
+
+
+
+    <div class="index">
+        <% category.forEach(cat => {%>
+            <br>
+            <div class="cat-preview">
+                <p class="title-preview"><%= cat.name%></p>
+            <button class="view-more" onclick="window.location.href='/category/<%= cat.name%>'">View more</button>
+            </div>
+            
+            <div class="slider owl-carousel">
+                <% products.forEach(data => {%>
+                    <% if(data.category == cat.name){%>
+                        <div class="card" onclick="window.location.href='/product/<%= data.id%>'">
+                            <img src="/upload/images/<%= data.image%>" alt="">
+                            <p class="title"><%= data.name%></p>
+                            <p class="minDes"><%= data.minDes%></p>
+                            <p class="price text-success">$<%= data.price%></p>
+                            <% if(data.instock == false){%>
+                                <p class="status bg-danger">Out of stock</p>
+                            <%}%>
+                        </div>
+                    <%} %>
+                    <%}) %>
+            </div>
+           
+            <br>
+        <%}) %>
+        <script>
+            $(".slider").owlCarousel({
+                responsive: {
+                    0: {
+                        items: 2.3, //10 items above 1000px browser width
+                        itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                        itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                        itemsTablet: [600, 2], //2 items between 600 and 0
+                        itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                        autoplay: true, //
+                        loop: true,
+                        autoplayTimeout: 2000,
+                        autoplayHoverPause: true,
+                    },
+
+                    1000: {
+                        items: 6, //10 items above 1000px browser width
+                        itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                        itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                        itemsTablet: [600, 2], //2 items between 600 and 0
+                        itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                        autoplay:true,
+                        loop: true,
+                        autoplayTimeout: 1500,
+                        autoplayHoverPause: true,
+                    }
+                }
+            })
+        </script>
+    </div>
+
+    <%- include("../layouts/footer") -%>

@@ -1,0 +1,37 @@
+<%- include("../../layouts/admin-navbar") -%>
+
+<% if(reject.length > 0){%>
+    <script>
+        Swal.fire(
+            'Order rejected successfully',
+            'We have sent email for customer to let him know',
+            'success'
+        )
+    </script>
+<%} %>
+
+<% if(accept.length > 0){%>
+    <script>
+        Swal.fire(
+            'Order accepted successfully',
+            'We have sent email for customer to let him know',
+            'success'
+        )
+    </script>
+<%} %>
+
+<div class="new-orders">
+    <p class="title">New Orders</p>
+    <div class="orders">
+        <% orders.forEach(data => {%>
+
+            <div class="order" onclick="window.location.href='/admin/orders/get/<%= data.id%>'">
+                <ion-icon class="folder" name="folder"></ion-icon>
+                <p><%= data.name %> - <%= data.Date%></p>
+            </div>
+            
+        <%}) %>
+    </div>
+</div>
+
+<%- include("../../layouts/footer") -%>

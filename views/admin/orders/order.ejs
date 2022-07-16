@@ -1,0 +1,162 @@
+<% if(user.isAdmin == true){%>
+    <%- include("../../layouts/admin-navbar") -%>
+<%} else {%>
+    <%- include("../../layouts/navbar") -%>
+    <%} %>
+
+    <div class="order-page" id="printArea">
+        <% if(many==true){%>
+            <% for (let i=0; i < algorithm.length; i++) {%>
+                <div class="bill-bg">
+                    <div class="first-info">
+                        <p>اسم الزبون : <%= data.name%>
+                        </p>
+                        <p>العنوان : الموصل</p>
+                        <p>رقم الهاتف : <%= data.phone%>
+                        </p>
+                    </div>
+
+                    <div class="seconst-info">
+                        <p>التاريخ : <%= data.Date%>
+                        </p>
+                        <p>رقم الفاتورة : <%= data.bill_id%>
+                        </p>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>اسم المادة</th>
+                                <th>سعر المادة</th>
+                                <th>الكمية</th>
+                                <th>السعر النهائي</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <% if(i==0){%>
+                                <% for(let j=0; j < algorithm[i][1]; j++){%>
+                                    <tr>
+                                        <td>
+                                            <%= j+1%>
+                                        </td>
+                                        <td>
+                                            <%= data.order[j].name%>
+                                        </td>
+                                        <td>$<%= data.order[j].price%>
+                                        </td>
+                                        <td>
+                                            <%= data.order[j].qty%>
+                                        </td>
+                                        <td>$<%= data.order[j].qty * data.order[j].price %>
+                                        </td>
+                                    </tr>
+                                    <%} %>
+                                        <%} else {%>
+                                            <% for(let j=algorithm[i-1][1]; j < algorithm[i][1]; j++){%>
+                                                <tr>
+                                                    <td>
+                                                        <%= j+1%>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.order[j].name%>
+                                                    </td>
+                                                    <td>$<%= data.order[j].price%>
+                                                    </td>
+                                                    <td>
+                                                        <%= data.order[j].qty%>
+                                                    </td>
+                                                    <td>$<%= data.order[j].qty * data.order[j].price %>
+                                                    </td>
+                                                </tr>
+                                                <%} %>
+                                                    <%} %>
+                        </tbody>
+                    </table>
+                    <br>
+                    <% } %>
+                        <%} else {%>
+                            <div class="bill-bg">
+                                <div class="first-info">
+                                    <p>اسم الزبون : <%= data.name%>
+                                    </p>
+                                    <p>العنوان : الموصل</p>
+                                    <p>رقم الهاتف : <%= data.phone%>
+                                    </p>
+                                </div>
+
+                                <div class="seconst-info">
+                                    <p>التاريخ : <%= data.Date%>
+                                    </p>
+                                    <p>رقم الفاتورة : <%= data.bill_id%>
+                                    </p>
+                                </div>
+
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>اسم المادة</th>
+                                            <th>سعر المادة</th>
+                                            <th>الكمية</th>
+                                            <th>السعر النهائي</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <% for(let j=0; j < data.order.length; j++){%>
+                                            <tr>
+                                                <td>
+                                                    <%= j+1%>
+                                                </td>
+                                                <td>
+                                                    <%= data.order[j].name%>
+                                                </td>
+                                                <td>$<%= data.order[j].price%>
+                                                </td>
+                                                <td>
+                                                    <%= data.order[j].qty%>
+                                                </td>
+                                                <td>$<%= data.order[j].qty * data.order[j].price %>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+
+
+                                    </tbody>
+                                </table>
+
+                                <%}%>
+                            </div>
+
+                            <br>
+
+                            <% if(user.isAdmin == true){%>
+                                <div class="tools">
+
+                                    <form action="/admin/reject-order/<%=data.id%>?_method=PUT" method="post">
+                                        <button class="btn btn-danger">Reject Order</button>
+                                    </form>
+    
+                                    <button class="btn btn-dark" onclick="printPage()">Print Order</button>
+    
+                                    <form action="/admin/accept-order/<%=data.id%>?_method=PUT" method="post">
+                                        <button class="btn btn-success">Accept Order</button>
+                                    </form>
+                                </div>
+                            <%} %>
+
+                            <br>
+
+                            <div class="print">
+                            </div>
+                            <script type="text/javascript">
+                                function printPage() {
+                                    window.print();
+                                }
+                            </script>
+
+                            <%- include("../../layouts/footer") -%>

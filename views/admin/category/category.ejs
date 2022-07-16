@@ -1,0 +1,100 @@
+<%- include("../../layouts/admin-navbar") -%>
+
+<% if(del.length > 0){%>
+  <script>
+    Swal.fire(
+      'Category successfuly deleted',
+      '',
+      'success'
+    )
+  </script>
+<%} %>
+
+<% if(suc.length > 0){%>
+  <script>
+    Swal.fire(
+      'Category successfuly edited',
+      '',
+      'success'
+    )
+  </script>
+<%} %>
+
+<div class="category">
+  <p class="title">Categories</p>
+  <button id="openAdd" class="add-remove-content" onclick="openAdd()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <line x1="12" y1="5" x2="12" y2="19" />
+    <line x1="5" y1="12" x2="19" y2="12" />
+  </svg></button>
+
+  <button id="closeAdd" class="add-remove-content display-none" onclick="closeAdd()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg></button>
+
+    <table class="table table-hover bg-light table-striped container">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Added Date</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="add-content">
+            <form action="/admin/category" method="post">
+              <td></td>
+              <td><input type="text" name="name" placeholder="Category Name"></td>
+              <td><button class="tick-btn"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M5 12l5 5l10 -10" />
+              </svg></button></td>
+              <td></td>
+              <td></td>
+            </form>
+          </tr>
+          <% for (let i = 0; i < category.length; i++) {%>
+            <tr>
+              <td><%= i+1%></td>
+              <td><%= category[i].name %></td>
+              <td><%= category[i].Date %></td>
+              <td><button class="edit-btn" onclick="window.location.href='/admin/category/edit/<%= category[i].id%>'"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+                <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
+              </svg></button></td>
+              <td><form action="/admin/category/delete/<%= category[i].id%>?_method=DELETE" method="post">
+                <button class="delete-btn"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                  <line x1="4" y1="7" x2="20" y2="7" />
+                  <line x1="10" y1="11" x2="10" y2="17" />
+                  <line x1="14" y1="11" x2="14" y2="17" />
+                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                </svg></button>
+              </form></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+</div>
+
+<script>
+  function openAdd(){
+    document.getElementById("add-content").style.display="contents";
+    document.getElementById("openAdd").style.display="none";
+    document.getElementById("closeAdd").style.display="inline";
+  }
+
+  function closeAdd(){
+    document.getElementById("add-content").style.display="none";
+    document.getElementById("openAdd").style.display="inline";
+    document.getElementById("closeAdd").style.display="none";
+  }
+</script>
+
+<%- include("../../layouts/footer") -%>

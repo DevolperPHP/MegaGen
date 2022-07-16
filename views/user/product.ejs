@@ -1,0 +1,107 @@
+<%- include("../layouts/navbar") -%>
+
+<% if(suc.length > 0){%>
+    <script>
+      Swal.fire(
+        'Product added to cart',
+        '',
+        'success'
+      )
+    </script>
+  <%} %>
+
+  <% if(err.length > 0){%>
+    <script>
+      Swal.fire(
+        'Product already added',
+        'This product is already added to cart',
+        'error'
+      )
+    </script>
+  <%} %>
+
+
+<div class="product-page">
+    <p class="title-page"><%= data.name%></p>
+
+    <div class="information">
+        <div class="flex">
+            <img src="/upload/images/<%= data.image%>" alt="">
+            <p class="des"><%= data.des%></p>
+        </div>
+        
+        <div class="flex bottom">
+            <p class="price text-success">$<%= data.price%></p>
+        <% if(data.instock == true){%>
+            <form action="/cart/add/<%= data.id%>?_method=PUT" method="post">
+                <button class="btn btn-dark"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-plus" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <circle cx="6" cy="19" r="2" />
+                    <circle cx="17" cy="19" r="2" />
+                    <path d="M17 17h-11v-14h-2" />
+                    <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
+                    <path d="M15 6h6m-3 -3v6" />
+                  </svg> Add to cart</button>
+            </form>
+        <%} else {%>
+            <button class="btn bg-danger"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-off" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <circle cx="6" cy="19" r="2" />
+                <path d="M17 17a2 2 0 1 0 2 2" />
+                <path d="M17 17h-11v-11" />
+                <path d="M9.239 5.231l10.761 .769l-1 7h-2m-4 0h-7" />
+                <path d="M3 3l18 18" />
+              </svg> Out of stock</button>
+        <%} %>
+        </div>
+    </div>
+
+    <p class="Suggestions">Suggestions</p>
+    <div class="slider owl-carousel">
+        <% products.forEach(data => {%>
+                <div class="card" onclick="window.location.href='/product/<%= data.id%>'">
+                    <img src="/upload/images/<%= data.image%>" alt="">
+                    <p class="title"><%= data.name%></p>
+                    <p class="minDes"><%= data.minDes%></p>
+                    <p class="price text-success">$<%= data.price%></p>
+                    <% if(data.instock == false){%>
+                        <p class="status bg-danger">Out of stock</p>
+                    <%}%>
+                </div>
+            <%}) %>
+    </div>
+    <br>
+    <br>
+</div>
+
+<script>
+    $(".slider").owlCarousel({
+        responsive: {
+            0: {
+                items: 2.4, //10 items above 1000px browser width
+                itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                itemsTablet: [600, 2], //2 items between 600 and 0
+                itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                autoplay: true, //
+                loop: true,
+                autoplayTimeout: 2000,
+                autoplayHoverPause: true,
+            },
+
+            1000: {
+                items: 6, //10 items above 1000px browser width
+                itemsDesktop: [1000, 5], //5 items between 1000px and 901px
+                itemsDesktopSmall: [900, 3], // betweem 900px and 601px
+                itemsTablet: [600, 2], //2 items between 600 and 0
+                itemsMobile: true, // itemsMobile disabled - inherit from itemsTablet option
+                autoplay:true,
+                loop: true,
+                autoplayTimeout: 1500,
+                autoplayHoverPause: true,
+            }
+        }
+    })
+</script>
+
+<%- include("../layouts/footer") -%>

@@ -1,0 +1,17 @@
+<%- include("../layouts/navbar") -%>
+<div class="user-category">
+    <div class="cards">
+        <% products.forEach(data => {%>
+            <div class="card" onclick="window.location.href='/product/<%= data.id%>'">
+                <img src="/upload/images/<%= data.image%>" alt="">
+                <p class="title"><%= data.name%></p>
+                <p class="minDes"><%= data.minDes%></p>
+                <p class="price text-success">$<%= data.price%></p>
+                <% if(data.instock == false){%>
+                    <p class="status bg-danger">Out of stock</p>
+                <%}%>
+            </div>
+        <%})%>
+    </div>
+</div>
+<%- include("../layouts/footer") -%>
